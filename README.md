@@ -117,10 +117,19 @@ Server running on port 8080
 
 ## 6. API Endpoints
 
-### 6.1 Health Check
+### 6.1 Health Check (Backend Validation Checkpoint)
+
+This endpoint is used to verify that the backend server is running and able to handle **GET requests** correctly.
+
+**Checkpoint Purpose:**
+- Confirms the server has started successfully
+- Confirms routing is configured correctly
+- Confirms GET endpoints are accessible
+- Used as a basic backend availability check
 
 **Method:** GET  
 **URL:**
+
 
 ```
 http://localhost:8080/health
@@ -131,6 +140,14 @@ http://localhost:8080/health
 ```
 OK
 ```
+
+**Checkpoint Status:**
+- If response is `OK` → ✅ Backend is running and reachable
+- If response is `404` → ❌ Route not registered
+- If response is `405` → ❌ HTTP method mismatch
+- If server does not respond → ❌ Backend not running
+
+This checkpoint must pass before testing other API endpoints.
 
 ---
 
@@ -266,4 +283,5 @@ Once PostgreSQL credentials are provided:
 
 **Dinakaran S**  
 Backend – Entity & Classification Service
+
 
