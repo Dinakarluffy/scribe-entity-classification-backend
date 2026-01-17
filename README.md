@@ -151,7 +151,16 @@ This checkpoint must pass before testing other API endpoints.
 
 ---
 
-### 6.2 Analyze Entity & Classification
+### 6.2 Analyze Entity & Classification (POST API Validation Checkpoint)
+
+This endpoint analyzes a transcript and returns extracted entities, tone, style, and safety flags.
+
+**Checkpoint Purpose:**
+- Validates POST request handling
+- Confirms request payload parsing
+- Confirms API response structure matches PRD
+- Confirms backend logic execution (in-memory storage)
+
 
 **Method:** POST  
 **URL:**
@@ -236,31 +245,8 @@ Replace `{analysis_id}` with the value returned from the POST API.
 
 ---
 
-## 7. How to Paste Postman Outputs in README / Docs
 
-When documenting Postman outputs:
-
-1. Copy the **raw JSON response**
-2. Paste it inside triple backticks
-3. Specify `json` for formatting
-
-Example:
-
-````md
-```json
-{
-  "status": "success",
-  "analysis_id": "uuid",
-  "entities": {}
-}
-```
-````
-
-This keeps the output clean and readable in GitHub.
-
----
-
-## 8. Current Status
+## 7. Current Status
 
 - ✅ Backend API endpoints implemented
 - ✅ API contracts validated via Postman
@@ -270,7 +256,7 @@ This keeps the output clean and readable in GitHub.
 
 ---
 
-## 9. Next Steps
+## 8. Next Steps
 
 Once PostgreSQL credentials are provided:
 - Replace in-memory repository with PostgreSQL
@@ -279,9 +265,6 @@ Once PostgreSQL credentials are provided:
 
 ---
 
-## 10. Maintainer
 
-**Dinakaran S**  
-Backend – Entity & Classification Service
 
 
