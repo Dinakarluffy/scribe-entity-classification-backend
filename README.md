@@ -19,7 +19,7 @@ The service exposes REST APIs to analyze transcript text and return:
 - **Framework:** net/http + Gorilla Mux
 - **Storage:** In-memory (temporary)
 - **Future DB:** PostgreSQL (awaiting credentials)
-- **API Testing:** Postman / curl
+- **API Testing:** Postman
 
 ---
 
@@ -266,3 +266,4 @@ Once PostgreSQL credentials are provided:
 
 **Dinakaran S**  
 Backend – Entity & Classification Service
+
