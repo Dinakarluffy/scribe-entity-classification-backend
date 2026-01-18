@@ -1,0 +1,88 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+function Results() {
+  const [data, setData] = useState<any[]>([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchResults();
+  }, []);
+
+  const fetchResults = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8080/api/entity-classification/results"
+      );
+      setData(res.data);
+    } catch (err) {
+      setError("Failed to fetch results");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <p>Loading results...</p>;
+
+  return (
+   <div className="page">
+  <h2>Analysis Results</h2>
+
+  {error && <p className="error">{error}</p>}
+      <table border={1} cellPadding={8} style={{ width: "100%" }}>
+        <thead>
+          <tr>
+            <th>People</th>
+            <th>Tools</th>
+            <th>Brands</th>
+            <th>Products</th>
+            <th>Tone</th>
+            <th>Style</th>
+            <th>Sensitive Domains</th>
+            <th>Severity</th>
+            <th>Requires Review</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {data.length === 0 && (
+            <tr>
+                <td colSpan={10} className="no-data">
+                    No results found
+                </td>
+            </tr>
+          )}
+
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.entities?.people?.join(", ") || "-"}</td>
+              <td>{row.entities?.tools?.join(", ") || "-"}</td>
+              <td>{row.entities?.brands?.join(", ") || "-"}</td>
+              <td>{row.entities?.products?.join(", ") || "-"}</td>
+              <td>{row.tone?.primary || "-"}</td>
+              <td>{row.style?.primary || "-"}</td>
+              <td>
+                {row.safety_flags?.sensitive_domains?.length
+                  ? row.safety_flags.sensitive_domains.join(", ")
+                  : "None"}
+              </td>
+              <td>{row.safety_flags?.severity || "None"}</td>
+              <td>
+                {row.safety_flags?.requires_review ? "Yes" : "No"}
+              </td>
+              <td>
+                {row.created_at
+                  ? new Date(row.created_at).toLocaleString()
+                  : "-"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default Results;

@@ -20,6 +20,11 @@ func RegisterRoutes() *mux.Router {
 		"/api/entity-classification/results/{analysis_id}",
 		handlers.GetResultHandler,
 	).Methods("GET")
+
+	r.HandleFunc(
+		"/api/entity-classification/results",
+		handlers.GetResultHandler,
+	).Methods("GET")
 	
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
